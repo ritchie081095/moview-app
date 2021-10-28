@@ -1,10 +1,9 @@
+
 import React,{useEffect,useState} from 'react';
 import {Button,Row,Col,Container,Form,Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useSelector,useDispatch} from 'react-redux';
 import {setMovies,addMovie} from './actions';
-
-
 
 
 function App() {
@@ -28,7 +27,7 @@ const resetInputField = () => {
 
 const getMovies = async(item) =>{
      try {
-     await fetch('http://movie-backend.test/api/searchMovies', {
+     await fetch(process.env.REACT_APP_API_URL+'/searchMovies', {
           method: 'POST',
           headers: {
           Accept: 'application/json',
@@ -52,7 +51,7 @@ const getMovies = async(item) =>{
 
  const addMovies = async() =>{
      try {
-     await fetch('http://movie-backend.test/api/movie', {
+     await fetch(process.env.REACT_APP_API_URL+'/movie', {
           method: 'POST',
           headers: {
           Accept: 'application/json',
@@ -95,6 +94,7 @@ const getMovies = async(item) =>{
 
  useEffect(() => {
    getMovies();
+  //  console.log(process.env.REACT_APP_API_URL);
  }, [])
 
   return (
@@ -133,7 +133,7 @@ const getMovies = async(item) =>{
           <Col>
              <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Duration</Form.Label>
-                <Form.Control type="number"
+                <Form.Control
                 value={__duration}
                 onChange={(e) => setDuration(e.target.value)}
                 />
